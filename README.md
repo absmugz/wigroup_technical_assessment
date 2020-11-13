@@ -34,5 +34,4 @@ Please attempt as much questions as you can; while using modules such as redux, 
 
 ### Who do I talk to? ###
 
-* Avinash via MikeN@wigroupinternational.com
-* Please also cc your contact person from People's Team/HR
+* Avinash via avinashl@wigroupinternational.com
