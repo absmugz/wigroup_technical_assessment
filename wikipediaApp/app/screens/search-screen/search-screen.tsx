@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { ViewStyle, SafeAreaView, Text, StyleSheet, View, FlatList, Alert, TextStyle } from 'react-native'
 import { SearchBar } from 'react-native-elements'
 import { Screen } from "../../components"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
 
@@ -36,12 +36,14 @@ export const SearchScreen = observer(function SearchScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
   const [search, setSearch] = useState('')
   const [filteredDataSource, setFilteredDataSource] = useState([])
   const [masterDataSource, setMasterDataSource] = useState([])
 
   useEffect(() => {
+    // refactor dummy with actual link from Wkikipedia search api
+    // https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=
     fetch('https://jsonplaceholder.typicode.com/posts')
       .then((response) => response.json())
       .then((responseJson) => {
@@ -80,10 +82,15 @@ export const SearchScreen = observer(function SearchScreen() {
     Alert.alert('Id : ' + item.id + ' Title : ' + item.title)
   }
 
+  const detailScreen = (item) => navigation.navigate('detail', {
+    itemId: item.id,
+    itemTitle: item.title,
+  })
+
   const ItemView = ({ item }) => {
     return (
       // Flat List Item
-      <Text style={ITEMSTYLE} onPress={() => getItem(item)}>
+      <Text style={ITEMSTYLE} onPress={() => detailScreen(item)}>
         {item.id}
         {'.'}
         {item.title.toUpperCase()}
